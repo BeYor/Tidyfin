@@ -1,0 +1,63 @@
+name: tidyfin
+
+services:
+  tidyfin:
+    image: ghcr.io/beyor/tidyfin:latest
+    # To build from this repository instead of pulling the image, replace the line above with:
+    # build:
+    #   context: .
+    #   dockerfile: backend/Dockerfile
+    container_name: tidyfin
+    restart: unless-stopped
+    ports:
+      - "8484:8484"
+    environment:
+      TZ: Europe/Warsaw
+    volumes:
+      # database, backups of the original posters, settings
+      - /DATA/AppData/tidyfin/data:/data
+      # media library, read-only (disk usage and the language scan);
+      # Radarr/Sonarr delete the files, not Tidyfin
+      - /DATA/Media:/media:ro
+    x-casaos:
+      envs:
+        - container: TZ
+          description:
+            en_us: Time zone
+            pl_pl: Strefa czasowa
+      ports:
+        - container: "8484"
+          description:
+            en_us: Web UI
+            pl_pl: Panel webowy
+      volumes:
+        - container: /data
+          description:
+            en_us: Database, original poster backups, settings
+            pl_pl: Baza, kopie oryginalnych plakatów, ustawienia
+        - container: /media
+          description:
+            en_us: Media library (read-only)
+            pl_pl: Biblioteka mediów (tylko do odczytu)
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  main: tidyfin
+  author: Tidyfin
+  category: Media
+  developer: Tidyfin
+  icon: https://cdn.jsdelivr.net/gh/BeYor/Tidyfin@main/frontend/assets/icon-512.png
+  index: /
+  port_map: "8484"
+  scheme: http
+  tagline:
+    en_us: Automatic cleanup and language badges for your Jellyfin library
+    pl_pl: Automatyczne porządki i znaczniki języka w bibliotece Jellyfin
+  title:
+    en_us: Tidyfin
+    custom: Tidyfin
+  description:
+    en_us: Cleans up unwatched movies and series via Radarr/Sonarr with a grace period, "leaving soon" collections and poster badges, plus Polish audio/subtitle badges.
+    pl_pl: Usuwa nieoglądane filmy i seriale przez Radarr/Sonarr z okresem karencji, kolekcją "Wkrótce znikają" i odznakami na plakatach oraz oznacza polskie audio i napisy.

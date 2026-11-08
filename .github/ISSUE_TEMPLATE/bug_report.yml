@@ -1,0 +1,37 @@
+name: Bug report
+description: Something does not work as described
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Tidyfin version
+      description: Shown in Settings, About.
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: How do you run it?
+      description: For example Docker on ZimaOS, plus your Jellyfin, Radarr and Sonarr versions.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log lines
+      description: Copy them from the Logs page. Remove API keys and addresses you do not want to share.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send
+      options:
+        - label: I removed secrets (API keys, tokens, passwords) from everything I pasted.
+          required: true
