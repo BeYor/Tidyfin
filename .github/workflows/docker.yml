@@ -1,7 +1,5 @@
 name: Docker image
 
-# The image is built only when a version tag such as v0.4.0 is pushed, never for ordinary commits.
-# A stable tag (v0.4.0) also moves "latest"; a pre-release tag (v0.5.0-beta1) does not.
 on:
   push:
     tags: ["v*"]
